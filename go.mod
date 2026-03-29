@@ -1,3 +1,5 @@
 module github.com/anand-aman/orders-api
 
-go 1.21.1
+go 1.22
+
+require github.com/go-chi/chi/v5 v5.2.5 // indirect
