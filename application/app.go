@@ -33,6 +33,12 @@ func (a *App) Start(ctx context.Context) error {
 		return fmt.Errorf("Failed to connect to Redis: %w", err)
 	}
 
+	defer func ()  {
+		if err := a.rdb.Close(); err != nil {
+			fmt.Println("Failed to close Redis client: ", err)
+		}
+	}
+
 	ch := make(chan error, 1)
 	go func() {
 		err = server.ListenAndServe()
