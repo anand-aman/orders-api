@@ -8,6 +8,7 @@ import (
 	"github.com/go-chi/cors"
 
 	"github.com/anand-aman/orders-api/handler"
+	"github.com/anand-aman/orders-api/repository/order"
 )
 
 func (a *App) loadRoutes() {
@@ -29,7 +30,11 @@ func (a *App) loadRoutes() {
 }
 
 func (a *App) loadOrderRoutes(router chi.Router) {
-	orderHandler := &handler.Order{}
+	orderHandler := &handler.Order{
+		Repo: &order.RedisRepo{
+			Client: a.rdb,
+		},
+	}
 
 	router.Post("/", orderHandler.Create)
 	router.Get("/", orderHandler.List)
