@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
 
 	"github.com/anand-aman/orders-api/handler"
 )
@@ -18,6 +19,12 @@ func (a *App) loadRoutes() {
 	})
 
 	router.Route("/orders", a.loadOrderRoutes)
+
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"Content-Type"},
+	}))
 	a.router = router
 }
 
