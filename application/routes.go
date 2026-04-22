@@ -9,7 +9,7 @@ import (
 	"github.com/anand-aman/orders-api/handler"
 )
 
-func loadRoutes() *chi.Mux {
+func (a *App) loadRoutes() {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 
@@ -17,11 +17,11 @@ func loadRoutes() *chi.Mux {
 		w.WriteHeader(http.StatusOK)
 	})
 
-	router.Route("/orders", loadOrderRoutes)
-	return router
+	router.Route("/orders", a.loadOrderRoutes)
+	a.router = router
 }
 
-func loadOrderRoutes(router chi.Router) {
+func (a *App) loadOrderRoutes(router chi.Router) {
 	orderHandler := &handler.Order{}
 
 	router.Post("/", orderHandler.Create)
