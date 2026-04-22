@@ -38,7 +38,7 @@ func (r *RedisRepo) Insert(ctx context.Context, order *model.Order) error {
 	resSAdd := txn.SAdd(ctx, "orders", key)
 	if resSAdd.Err() != nil {
 		txn.Discard()
-		fmt.Errorf("Failed to add to the Orders set: %w", err)
+		return fmt.Errorf("Failed to add to the Orders set: %w", err)
 	}
 
 	if _, err := txn.Exec(ctx); err != nil {
