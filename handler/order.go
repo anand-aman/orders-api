@@ -40,7 +40,7 @@ func (h *Order) Create(w http.ResponseWriter, r *http.Request) {
 		CreatedAt:  &now,
 	}
 
-	err := h.Repo.Insert(r.Context(), &order)
+	err := h.Repo.Insert(r.Context(), order)
 	if err != nil {
 		fmt.Println("Failed to insert order: ", err)
 		w.WriteHeader(http.StatusInternalServerError)

@@ -18,7 +18,7 @@ func orderIdKey(id uint64) string {
 	return fmt.Sprintf("order:%d", id)
 }
 
-func (r *RedisRepo) Insert(ctx context.Context, order *model.Order) error {
+func (r *RedisRepo) Insert(ctx context.Context, order model.Order) error {
 	data, err := json.Marshal(order)
 	if err != nil {
 		return fmt.Errorf("Failed to encode Order: %w", err)
